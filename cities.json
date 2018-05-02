@@ -1,0 +1,10 @@
+[{
+    "id":1,
+    "name": "СПБ",
+    "relief": "relief1",
+    "isGasified": true,
+    "piplineMaterial": "piplineMaterial1",
+    "strenght": 3000,
+    "hasImportantFacilities": true,
+    "hasDifficultObjects": true
+}]

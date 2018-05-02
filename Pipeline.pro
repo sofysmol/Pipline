@@ -22,13 +22,32 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    city/city.cpp \
+    common/storage.cpp \
+    city/citystorage.cpp \
+    city/cityservice.cpp \
+    map/pipelinemap.cpp \
+    map/pipelinecity.cpp \
+    map/pipelinemapstorage.cpp \
+    map/pipelinemapservice.cpp \
+    map/pipelinemapresponse.cpp \
+    map/pipelinecityresponse.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    city/city.h \
+    common/storage.h \
+    city/citystorage.h \
+    city/cityservice.h \
+    map/pipelinemap.h \
+    map/pipelinecity.h \
+    map/pipelinemapstorage.h \
+    map/pipelinemapservice.h \
+    map/pipelinemapresponse.h \
+    map/pipelinecityresponse.h
 
 FORMS += \
         mainwindow.ui

@@ -34,7 +34,15 @@ SOURCES += \
     map/pipelinemapstorage.cpp \
     map/pipelinemapservice.cpp \
     map/pipelinemapresponse.cpp \
-    map/pipelinecityresponse.cpp
+    map/pipelinecityresponse.cpp \
+    common/configloader.cpp \
+    common/jsonloader.cpp \
+    exceptions/filenotfoundexception.cpp \
+    city/cityparser.cpp \
+    user/userstorage.cpp \
+    map/mapparser.cpp \
+    map/pipelinecityparser.cpp \
+    user/user.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,7 +55,15 @@ HEADERS += \
     map/pipelinemapstorage.h \
     map/pipelinemapservice.h \
     map/pipelinemapresponse.h \
-    map/pipelinecityresponse.h
+    map/pipelinecityresponse.h \
+    common/configloader.h \
+    common/jsonloader.h \
+    exceptions/filenotfoundexception.h \
+    city/cityparser.h \
+    user/userstorage.h \
+    map/mapparser.h \
+    map/pipelinecityparser.h \
+    user/user.h
 
 FORMS += \
         mainwindow.ui

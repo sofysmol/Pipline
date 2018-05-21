@@ -1,6 +1,6 @@
 #include "city.h"
 
-City::City(QString id,
+City::City(int id,
            QString name,
            QString relief,
            bool isGasified,

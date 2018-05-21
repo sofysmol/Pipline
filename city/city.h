@@ -4,7 +4,7 @@
 
 class City {
 public:
-    QString id;
+    int id;
     QString name;
     QString relief;
     bool isGasified;
@@ -13,7 +13,7 @@ public:
     bool hasImportantFacilities;
     bool hasDifficultObjects;
 
-    City(QString id,
+    City(int id,
         QString name,
         QString relief,
         bool isGasified,

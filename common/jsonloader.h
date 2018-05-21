@@ -1,11 +1,15 @@
-#ifndef JSONSERIALIZER_H
-#define JSONSERIALIZER_H
+#ifndef JsonLoader_H
+#define JsonLoader_H
+#include<QJsonObject>
+#include <QString>
+#include <exceptions/filenotfoundexception.h>
 
-
-class JsonSerializer
+class JsonLoader
 {
 public:
-    JsonSerializer();
+    JsonLoader();
+    QJsonArray load(QString filename);
+    void save(QString filename, QJsonArray json);
 };
 
-#endif // JSONSERIALIZER_H
+#endif // JsonLoader_H

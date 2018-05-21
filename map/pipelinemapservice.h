@@ -8,7 +8,7 @@
 class PipelineMapService
 {
 public:
-    static PipelineMapStorage * getInstance();
+    static PipelineMapService * getInstance();
     PipelineMapResponse get(int id);
     QList<PipelineMapResponse> list();
     void addCity(int mapId, int cityId);
@@ -20,6 +20,7 @@ private:
 
     PipelineMapStorage* storage;
     CityStorage* cityStorage;
+    static PipelineMapService * instance;
 
     PipelineCityResponse toPipelineCityRespinse(PipelineCity c);
     PipelineMapResponse toPipelineMapRespinse(PipelineMap m);

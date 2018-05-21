@@ -3,6 +3,13 @@
 #include "pipelinemap.h"
 #include "city/citystorage.h"
 
+PipelineMapService* PipelineMapService::instance = 0;
+PipelineMapService * PipelineMapService::getInstance() {
+    if(!PipelineMapService::instance)
+        PipelineMapService::instance = new PipelineMapService();
+    return PipelineMapService::instance;
+}
+
 PipelineMapService::PipelineMapService()
 {
     storage = PipelineMapStorage::getInstance();

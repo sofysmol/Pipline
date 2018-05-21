@@ -6,6 +6,10 @@ class User
 {
 public:
     User();
+    User(int id,
+        QString login,
+        QString password,
+        QString specialty);
     int id;
     QString login;
     QString password;

@@ -42,7 +42,9 @@ SOURCES += \
     user/userstorage.cpp \
     map/mapparser.cpp \
     map/pipelinecityparser.cpp \
-    user/user.cpp
+    user/user.cpp \
+    user/userparser.cpp \
+    user/userservice.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -63,7 +65,13 @@ HEADERS += \
     user/userstorage.h \
     map/mapparser.h \
     map/pipelinecityparser.h \
-    user/user.h
+    user/user.h \
+    user/userparser.h \
+    user/userservice.h
 
 FORMS += \
         mainwindow.ui
+
+DISTFILES += \
+    maps.json \
+    cities.json

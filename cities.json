@@ -1,4 +1,10 @@
-[{
+{
+     "Mapes": [
+    {
+    "mapID":1,
+    "mapName": "Ленинградская область",
+    "PipelineCeties": [
+    {
     "id":1,
     "name": "СПБ",
     "relief": "relief1",
@@ -7,4 +13,30 @@
     "strenght": 3000,
     "hasImportantFacilities": true,
     "hasDifficultObjects": true
-}]
+    },
+    {  
+     "id":2,
+     "name": "Кириши",
+     "relief": "relief1",
+     "isGasified": true,
+     "piplineMaterial": "piplineMaterial1",
+     "strenght": 3000,
+     "hasImportantFacilities": true,
+     "hasDifficultObjects": true,
+     "isAdded": false
+     },
+    {
+          "id":3,
+          "name": "Гатчина",
+          "relief": "relief1",
+          "isGasified": true,
+          "piplineMaterial": "piplineMaterial1",
+          "strenght": 3000,
+          "hasImportantFacilities": true,
+          "hasDifficultObjects": true,
+          "isAdded": false
+    }
+   ]
+  }
+ ]
+}

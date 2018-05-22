@@ -44,7 +44,10 @@ SOURCES += \
     map/pipelinecityparser.cpp \
     user/user.cpp \
     user/userparser.cpp \
-    user/userservice.cpp
+    user/userservice.cpp \
+    alternatives/alternativesservice.cpp \
+    alternatives/alternativesmatrix.cpp \
+    criterion/criterion.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -67,11 +70,15 @@ HEADERS += \
     map/pipelinecityparser.h \
     user/user.h \
     user/userparser.h \
-    user/userservice.h
+    user/userservice.h \
+    alternatives/alternativesservice.h \
+    alternatives/alternativesmatrix.h \
+    criterion/criterion.h
 
 FORMS += \
         mainwindow.ui
 
 DISTFILES += \
     maps.json \
-    cities.json
+    cities.json \
+    users.json

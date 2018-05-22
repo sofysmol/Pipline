@@ -20,9 +20,5 @@ int main(int argc, char *argv[])
     loader.loadCity("/Users/s.smolina/Documents/yyy/QtProjects/Pipeline/cities.json");
     loader.loadMap("/Users/s.smolina/Documents/yyy/QtProjects/Pipeline/maps.json");
     loader.loadUser("/Users/s.smolina/Documents/yyy/QtProjects/Pipeline/users.json");
-    CityStorage* storage = CityStorage::getInstance();
-    qDebug() << storage->list().length();
-    qDebug() << PipelineMapStorage::getInstance()->list().at(0).cities.at(0).isAdded;
-    qDebug() << UserStorage::getInstance()->list().at(0).login;
     return a.exec();
 }

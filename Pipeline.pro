@@ -50,7 +50,10 @@ SOURCES += \
     criterion/criterion.cpp \
     criterion/criterionstorage.cpp \
     criterion/criterionmatrix.cpp \
-    criterion/criterionservice.cpp
+    criterion/criterionservice.cpp \
+    tree/graph.cpp \
+    tree/edge.cpp \
+    tree/vertex.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -79,7 +82,10 @@ HEADERS += \
     criterion/criterion.h \
     criterion/criterionstorage.h \
     criterion/criterionmatrix.h \
-    criterion/criterionservice.h
+    criterion/criterionservice.h \
+    tree/graph.h \
+    tree/edge.h \
+    tree/vertex.h
 
 FORMS += \
         mainwindow.ui

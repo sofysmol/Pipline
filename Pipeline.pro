@@ -47,7 +47,10 @@ SOURCES += \
     user/userservice.cpp \
     alternatives/alternativesservice.cpp \
     alternatives/alternativesmatrix.cpp \
-    criterion/criterion.cpp
+    criterion/criterion.cpp \
+    criterion/criterionstorage.cpp \
+    criterion/criterionmatrix.cpp \
+    criterion/criterionservice.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -73,7 +76,10 @@ HEADERS += \
     user/userservice.h \
     alternatives/alternativesservice.h \
     alternatives/alternativesmatrix.h \
-    criterion/criterion.h
+    criterion/criterion.h \
+    criterion/criterionstorage.h \
+    criterion/criterionmatrix.h \
+    criterion/criterionservice.h
 
 FORMS += \
         mainwindow.ui

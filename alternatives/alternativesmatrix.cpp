@@ -5,9 +5,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 using namespace std;
-AlternativesMatrix::AlternativesMatrix()
+AlternativesMatrix::AlternativesMatrix(int inid)
 {
-
+    id = inid;
 }
 void AlternativesMatrix::calcEigenvector()
 {

@@ -16,6 +16,7 @@ public:
     AlternativesMatrix getMatrix();
     QVector<double> getEigenvector(QString cityId);
     float getWeight(QString cityId);
+    QList<QString> getListCity();
 };
 
 #endif // ALTERNATIVESSERVICE_H

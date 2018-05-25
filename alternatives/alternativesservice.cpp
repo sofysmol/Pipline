@@ -19,6 +19,10 @@ void AlternativesService::add(QString cityId){
     }
 }
 
+QList<QString> AlternativesService::getListCity()
+{
+    return storage;
+}
 void AlternativesService::remove(QString cityId){
     storage.removeOne(cityId);
 }

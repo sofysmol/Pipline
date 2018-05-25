@@ -12,7 +12,7 @@ public:
     void editMatrix(CriterionMatrix matrix);
     void addCriterion(Criterion criterion);
     void deleteCriterion(int id);
-    QVector<float> getEigenvector();
+    QVector<double> getEigenvector();
     bool correctConsistencyIndex();
 
 private:

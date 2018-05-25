@@ -14,7 +14,7 @@ public:
     void add(QString cityId);
     void remove(QString cityId);
     AlternativesMatrix getMatrix();
-    QVector<float> getEigenvector(QString cityId);
+    QVector<double> getEigenvector(QString cityId);
     float getWeight(QString cityId);
 };
 

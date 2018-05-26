@@ -8,6 +8,7 @@ class ResultsStorage
 public:
     static ResultsStorage * getInstance();
     void update(QList<UogResponce> results);
+    QList<UogResponce> getResults();
 private:
     ResultsStorage();
     static ResultsStorage * instance;

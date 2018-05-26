@@ -1,6 +1,9 @@
 #include "uogservice.h"
 #include <numeric>
+#include <QJsonDocument>
+#include <QJsonObject>
 using namespace std;
+using namespace System;
 UogService::UogService()
 {
     criterionstorage->CriterionStorage::getInstance();
@@ -16,19 +19,79 @@ UogService * UogService::getInstance() {
     return UogService::instance;
 }
 
-QVector<QVector<double>> UogService::createAlternativeMatrix(int criterionId ) //список альтернатив
+double UogService:: choosefield (City city, QString criterion)  //выбераем поле по критерию
 {
-    //выбераем поле по критерию
+    double a = 1.0;
+    switch (criterion) {
+    case 'relief':
+        city.relief;
+        //обработка в число
+        break;
+    case 'piplineMaterial':
+        city.piplineMaterial;
+        //обработка в число
+        break;
+    case 'strenght':
+        a = (double) city.strenght;
+        break;
+    case 'hasImportantFacilities':
+        bool b = city.hasImportantFacilities;
+        if (b) a = (double) 2;
+        break;
+    case 'hasDifficultObjects':
+        bool myb = city.hasDifficultObjects;
+        if (myb) a = (double) 2;
+        break;
+    default:
+        break;
+    }
+    return a;
+}
 
+AlternativesMatrix UogService::createAlternativeMatrix(QString criterion, int id_matrix) // создание матрицы альтернатив по критерию
+{
+    AlternativesMatrix alternativematrix (id_matrix);
+    QVector<QVector<double>> tmp_matrix;
+    QList<QString> listidcity = alternativeservice->getListCity();
+    for (int i=0; i < listidcity.size(); i++)
+    {
+        QVector<double> tmp_vector;
+        double a_1 = UogService::choosefield(citystorage->get(listidcity[i]), criterion); //выбераем поле по критерию
+        for(int j=0; j < listidcity.size(); j++)
+        {
+           double a_2 = UogService::choosefield(citystorage->get(listidcity[j]), criterion);
+            tmp_vector.push_back(a_1/a_2);
+        }
+        tmp_matrix.push_back(tmp_vector);
+    }
+    alternativematrix.matrix = tmp_matrix;
+    alternativematrix.getEigenvector();
+    alternativematrix.checkConsistency();
+    return alternativematrix;
 
 }
 
-void UogService::createListAlternativeMatrix() //список критериев из дерева
+void UogService::createListAlternativeMatrix()      //создание списка матриц альтернатив
 {
+    if (listalternativematrix.isEmpty() == false) listalternativematrix.clear();
 
+    for(int i=0; i < criterionstorage->list().size(); i++)
+    {
+        Criterion tmp_criterion = criterionstorage->list()[i];
+        QString criterion = tmp_criterion.name;
+        AlternativesMatrix tmp_matrix  = createAlternativeMatrix(criterion, i);       // создание матрицы альтернатив по критерию
+        listalternativematrix.push_back(tmp_matrix);
+    }
 }
 
-QVector<double> UogService::calcUog(){
+QVector<AlternativesMatrix> UogService::getListAlternativeMatrix()      // предоставление списка матриц альтернатив
+{
+    UogService::createListAlternativeMatrix();      //создание списка матриц альтернатив
+    return listalternativematrix;
+}
+
+QVector<double> UogService::calcUog()
+{
     QVector<double> uogs;
     QVector<double> vectorcriterion = criterionstorage->getMatrix().getEigenvector(); // собственный вектор матрицы критериев
 
@@ -44,7 +107,7 @@ QVector<double> UogService::calcUog(){
     }
 }
 
-void UogService::createListResponse()
+void UogService::createListResponse()           //создание ответа в виде списка UogResponce
 {
     QVector<double> uogs = UogService::calcUog();
     QList<QString> idcity =alternativeservice->getListCity();
@@ -58,9 +121,9 @@ void UogService::createListResponse()
     }
 }
 
-QList<UogResponce> UogService::getResults()
+QList<UogResponce> UogService::getResults() // результаты алгоритма
 {
-        UogService::createListResponse();
+        UogService::createListResponse();   //создание ответа в виде списка UogResponce
         storage->update(results);
         return results;
 }

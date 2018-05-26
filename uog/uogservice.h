@@ -16,6 +16,7 @@ public:
     void createListResponse();
     //get alternative matrix
     QList<UogResponce> getResults();
+    QVector<AlternativesMatrix> getListAlternativeMatrix();
 private:
     UogService();
     static UogService * instance;
@@ -23,7 +24,8 @@ private:
     CityStorage * citystorage;
     AlternativesService * alternativeservice;
     ResultsStorage * storage;
-    QVector<QVector<double>> createAlternativeMatrix(int idcriterion);
+    choosefield (City city, QString criterion);
+    AlternativesMatrix createAlternativeMatrix(QString criterion, int id);
     void createListAlternativeMatrix();
     QVector<double> calcUog();
 

@@ -22,3 +22,8 @@ void ResultsStorage::update(QList<UogResponce> results)
         storage.push_back(UogResponce);
     }
 }
+
+QList<UogResponce> ResultsStorage::getResults()
+{
+    return storage;
+}

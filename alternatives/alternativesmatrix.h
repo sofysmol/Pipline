@@ -7,6 +7,7 @@
 class AlternativesMatrix
 {
 public:
+    int id;
     QVector<QVector<double>> matrix;
     //QList<QString> indexes;
     AlternativesMatrix();

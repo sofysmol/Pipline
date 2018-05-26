@@ -24,12 +24,20 @@ double UogService:: choosefield (City city, QString criterion)  //выберае
     double a = 1.0;
     switch (criterion) {
     case 'relief':
-        city.relief;
-        //обработка в число
+        QString relief = city.relief;
+        if (relief == 'Равнина') a = 9.0;
+        else if (relief == 'Возвышенность') {
+            a = 5.0;
+        }
+        else a = 3.0;
         break;
     case 'piplineMaterial':
-        city.piplineMaterial;
-        //обработка в число
+        QString material =  city.piplineMaterial;
+        if (material == 'Сталь') a = 9.0;
+        else if (material == 'Чугун') {
+            a = 5.0;
+        }
+        else a = 3.0;
         break;
     case 'strenght':
         a = (double) city.strenght;

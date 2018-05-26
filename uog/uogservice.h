@@ -23,9 +23,9 @@ private:
     CriterionStorage * criterionstorage;
     CityStorage * citystorage;
     AlternativesService * alternativeservice;
-    ResultsStorage * storage;
-    choosefield (City city, QString criterion);
-    AlternativesMatrix createAlternativeMatrix(QString criterion, int id);
+    ResultsStorage * resultstorage;
+    double choosefield (City city, QString criterion);
+    AlternativesMatrix createAlternativeMatrix(QString criterion);
     void createListAlternativeMatrix();
     QVector<double> calcUog();
 

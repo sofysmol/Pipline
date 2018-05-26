@@ -1,8 +1,8 @@
 #ifndef RESULTSSTORAGE_H
 #define RESULTSSTORAGE_H
 #include "uogresponce.h"
-#include "uogservice.h"
-
+#include "common/storage.h"
+#include <QMap>
 class ResultsStorage
 {
 public:
@@ -12,7 +12,7 @@ public:
 private:
     ResultsStorage();
     static ResultsStorage * instance;
-    QList <UogResponce>  storage;
+    QMap<int, UogResponce> * storage;
 };
 
 #endif // RESULTSSTORAGE_H

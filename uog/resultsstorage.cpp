@@ -2,7 +2,7 @@
 
 ResultsStorage::ResultsStorage()
 {
-
+    storage = new QMap<int, UogResponce>();
 }
 ResultsStorage* ResultsStorage::instance = 0;
 ResultsStorage * ResultsStorage::getInstance() {
@@ -13,17 +13,17 @@ ResultsStorage * ResultsStorage::getInstance() {
 
 void ResultsStorage::update(QList<UogResponce> results)
 {
-    if (storage.isEmpty() == false)
+    if (storage->isEmpty() == false)
     {
-        storage.clear();
+        storage->clear();
     }
     for(int i=0; i< results.size(); i++)
     {
-        storage.push_back(UogResponce);
+        storage->insert(i,results[i]);
     }
 }
 
 QList<UogResponce> ResultsStorage::getResults()
 {
-    return storage;
+    return storage->values();
 }

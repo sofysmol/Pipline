@@ -1,15 +1,17 @@
 #include "uogservice.h"
+#include "uogresponce.h"
+#include "resultsstorage.h"
 #include <numeric>
 #include <QJsonDocument>
 #include <QJsonObject>
+
 using namespace std;
-using namespace System;
 UogService::UogService()
 {
     criterionstorage->CriterionStorage::getInstance();
     citystorage->CityStorage::getInstance();
     alternativeservice->AlternativesService::getInstance();
-    storage->ResultsStorage::getInstance();
+    resultstorage->ResultsStorage::getInstance();
 }
 
 UogService* UogService::instance = 0;
@@ -22,52 +24,54 @@ UogService * UogService::getInstance() {
 double UogService:: choosefield (City city, QString criterion)  //выбераем поле по критерию
 {
     double a = 1.0;
-    switch (criterion) {
-    case 'relief':
+    if(criterion == "relief")
+    {
         QString relief = city.relief;
-        if (relief == 'Равнина') a = 9.0;
-        else if (relief == 'Возвышенность') {
+        if (relief == "Равнина") a = 9.0;
+        else if (relief == "Возвышенность") {
             a = 5.0;
         }
         else a = 3.0;
-        break;
-    case 'piplineMaterial':
+    }
+    if (criterion == "piplineMaterial")
+    {
         QString material =  city.piplineMaterial;
-        if (material == 'Сталь') a = 9.0;
-        else if (material == 'Чугун') {
+        if (material == "Сталь") a = 9.0;
+        else if (material == "Чугун") {
             a = 5.0;
         }
         else a = 3.0;
-        break;
-    case 'strenght':
+    }
+    if (criterion == "strenght")
+    {
         a = (double) city.strenght;
-        break;
-    case 'hasImportantFacilities':
+    }
+    if (criterion == "hasImportantFacilities")
+    {
         bool b = city.hasImportantFacilities;
         if (b) a = (double) 2;
-        break;
-    case 'hasDifficultObjects':
+    }
+    if (criterion == "hasDifficultObjects")
+    {
         bool myb = city.hasDifficultObjects;
         if (myb) a = (double) 2;
-        break;
-    default:
-        break;
     }
+
     return a;
 }
 
-AlternativesMatrix UogService::createAlternativeMatrix(QString criterion, int id_matrix) // создание матрицы альтернатив по критерию
+AlternativesMatrix UogService::createAlternativeMatrix(QString criterion) // создание матрицы альтернатив по критерию
 {
-    AlternativesMatrix alternativematrix (id_matrix);
+    AlternativesMatrix alternativematrix;
     QVector<QVector<double>> tmp_matrix;
     QList<QString> listidcity = alternativeservice->getListCity();
     for (int i=0; i < listidcity.size(); i++)
     {
         QVector<double> tmp_vector;
-        double a_1 = UogService::choosefield(citystorage->get(listidcity[i]), criterion); //выбераем поле по критерию
+        double a_1 = UogService::choosefield(citystorage->get(listidcity[i].toInt()), criterion); //выбераем поле по критерию
         for(int j=0; j < listidcity.size(); j++)
         {
-           double a_2 = UogService::choosefield(citystorage->get(listidcity[j]), criterion);
+           double a_2 = UogService::choosefield(citystorage->get(listidcity[j].toInt()), criterion);
             tmp_vector.push_back(a_1/a_2);
         }
         tmp_matrix.push_back(tmp_vector);
@@ -87,7 +91,7 @@ void UogService::createListAlternativeMatrix()      //создание спис�
     {
         Criterion tmp_criterion = criterionstorage->list()[i];
         QString criterion = tmp_criterion.name;
-        AlternativesMatrix tmp_matrix  = createAlternativeMatrix(criterion, i);       // создание матрицы альтернатив по критерию
+        AlternativesMatrix tmp_matrix  = createAlternativeMatrix(criterion);       // создание матрицы альтернатив по критерию
         listalternativematrix.push_back(tmp_matrix);
     }
 }
@@ -111,8 +115,9 @@ QVector<double> UogService::calcUog()
             double a = listalternativematrix[j].getEigenvector()[i];
            tmp.push_back( a * vectorcriterion[i]);
         }
-        uogs.push_back(accumulate(tmp.begin(), tmp.end(),0.0););
+        uogs.push_back(accumulate(tmp.begin(), tmp.end(),0.0));
     }
+    return uogs;
 }
 
 void UogService::createListResponse()           //создание ответа в виде списка UogResponce
@@ -132,6 +137,6 @@ void UogService::createListResponse()           //создание ответа 
 QList<UogResponce> UogService::getResults() // результаты алгоритма
 {
         UogService::createListResponse();   //создание ответа в виде списка UogResponce
-        storage->update(results);
+        resultstorage->update(results);
         return results;
 }

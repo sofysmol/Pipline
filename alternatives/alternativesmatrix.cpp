@@ -4,10 +4,10 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include "criterion/criterionmatrix.h"
 using namespace std;
-AlternativesMatrix::AlternativesMatrix(int inid)
+AlternativesMatrix::AlternativesMatrix()
 {
-    id = inid;
 }
 void AlternativesMatrix::calcEigenvector()
 {
@@ -32,7 +32,7 @@ void AlternativesMatrix::calcEigenvector()
 }
 
 QVector<double> AlternativesMatrix::getEigenvector(){
-    CriterionMatrix::calcEigenvector();
+    AlternativesMatrix::calcEigenvector();
     return eigenvector;
 }
 
@@ -57,7 +57,7 @@ bool AlternativesMatrix::checkConsistency(){
 
     QFile file ("/home/kristina/QT/Projects/TestCriterion/PSS.json");
     file.open(QIODevice::ReadOnly);
-    dataFile = file.readAll();
+    QByteArray dataFile = file.readAll();
     file.close();
     QJsonDocument doc (QJsonDocument::fromJson(dataFile));
     QJsonObject json = doc.object();

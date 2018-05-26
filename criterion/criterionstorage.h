@@ -20,7 +20,7 @@ public:
 
 private:
     QMap<int, Criterion>* storage;
-    CriterionMatrix matrix;
+    CriterionMatrix  * matrix;
     static CriterionStorage * instance;
     CriterionStorage();
 };

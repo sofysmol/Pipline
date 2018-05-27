@@ -7,9 +7,16 @@
 class AlternativesMatrix
 {
 public:
-    QVector<QVector<float>> matrix;
-    QList<QString> indexes;
+    QVector<QVector<double>> matrix;
+    //QList<QString> indexes;
     AlternativesMatrix();
+    QVector<double> getEigenvector();
+    bool checkConsistency();        //проверка ИС
+private:
+    QVector<double> eigenvector;    //вектор приоритетов
+    double index_consistency;       //индекс согласованности
+    void calcEigenvector();
+    void calcIndex();
 };
 
 #endif // ALTERNATIVESMATRIX_H

@@ -8,10 +8,10 @@
 using namespace std;
 UogService::UogService()
 {
-    criterionstorage->CriterionStorage::getInstance();
-    citystorage->CityStorage::getInstance();
-    alternativeservice->AlternativesService::getInstance();
-    resultstorage->ResultsStorage::getInstance();
+    criterionstorage=CriterionStorage::getInstance();
+    citystorage=CityStorage::getInstance();
+    alternativeservice=AlternativesService::getInstance();
+    resultstorage=ResultsStorage::getInstance();
 }
 
 UogService* UogService::instance = 0;

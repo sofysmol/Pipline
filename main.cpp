@@ -10,6 +10,7 @@
 #include "common/configloader.h"
 #include "map/pipelinemapstorage.h"
 #include "user/userstorage.h"
+#include "tree/tree.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,5 +21,7 @@ int main(int argc, char *argv[])
     loader.loadCity("/Users/s.smolina/Documents/yyy/QtProjects/Pipeline/cities.json");
     loader.loadMap("/Users/s.smolina/Documents/yyy/QtProjects/Pipeline/maps.json");
     loader.loadUser("/Users/s.smolina/Documents/yyy/QtProjects/Pipeline/users.json");
+    int z = 5;
+    tree::Tree<int>* tree = new tree::Tree<int>(z);
     return a.exec();
 }

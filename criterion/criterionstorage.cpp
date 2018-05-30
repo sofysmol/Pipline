@@ -3,6 +3,7 @@
 CriterionStorage::CriterionStorage()
 {
     storage = new QMap<int, Criterion>();
+    matrix = CriterionMatrix::getInstance();
 }
 
 CriterionStorage* CriterionStorage::instance = 0;
@@ -39,9 +40,9 @@ QList<Criterion> CriterionStorage::list(){
 
 
 CriterionMatrix CriterionStorage::getMatrix(){
-    return matrix;
+    return *matrix;
 }
 
 void CriterionStorage::editMatrix(CriterionMatrix matrix){
-   this->matrix = matrix;
+   this->matrix = &matrix;
 }

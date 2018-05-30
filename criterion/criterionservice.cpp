@@ -28,10 +28,10 @@ void CriterionService::deleteCriterion(int id){
     storage->remove(id);
 }
 
-QVector<float> CriterionService::getEigenvector(){
-    return QVector<float>();
+QVector<double> CriterionService::getEigenvector(){
+    return storage->getMatrix().getEigenvector();//QVector<float>();
 }
 
 bool CriterionService::correctConsistencyIndex(){
-    return false;
+    return storage->getMatrix().checkConsistency();//false;
 }

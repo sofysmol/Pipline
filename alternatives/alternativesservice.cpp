@@ -19,6 +19,10 @@ void AlternativesService::add(QString cityId){
     }
 }
 
+QList<QString> AlternativesService::getListCity()
+{
+    return storage;
+}
 void AlternativesService::remove(QString cityId){
     storage.removeOne(cityId);
 }
@@ -27,8 +31,8 @@ AlternativesMatrix AlternativesService::getMatrix(){
     return AlternativesMatrix();
 }
 
-QVector<float> AlternativesService::getEigenvector(QString cityId){
-    return QVector<float>();
+QVector<double> AlternativesService::getEigenvector(QString cityId){
+    return QVector<double>();
 }
 
 float AlternativesService::getWeight(QString cityId){

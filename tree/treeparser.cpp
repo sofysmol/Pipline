@@ -20,7 +20,7 @@ QJsonObject TreeParser::addBranch(tree::Tree<QString>* tree, QString node){
     QJsonObject json = QJsonObject();
     json["id"] = node;
     QJsonArray array = QJsonArray();
-    QList<QString> nodes = tree->getBranches(node);
+    QList<QString> nodes = tree->getDstVertexs(node);
     for(int i=0; i<nodes.size(); i++)
     {
         QJsonObject branch = addBranch(tree, nodes[i]);

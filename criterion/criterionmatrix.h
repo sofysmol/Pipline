@@ -6,9 +6,19 @@
 class CriterionMatrix
 {
 public:
-    QVector<QVector<float>> matrix;
-    QList<QString> indexes;
+    static CriterionMatrix * getInstance();
+    QVector<QVector<double>> matrix;
+    //QList<QString> indexes;
+    void full (QVector<QVector<double>> matrix);
+    QVector<double> getEigenvector();
+    bool checkConsistency();        //проверка ИС
+private:
     CriterionMatrix();
+    static CriterionMatrix * instance;
+    QVector<double> eigenvector;    //вектор приоритетов
+    double index_consistency;       //индекс согласованности
+    void calcEigenvector();
+    void calcIndex();
 };
 
 #endif // CRITERIONMATRIX_H

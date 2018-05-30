@@ -33,27 +33,41 @@ public:
     Tree(Tree<V> &other);
     ~Tree();
 
-    //virtual TreeIterator<V> begin_vertex() const;
-    //virtual TreeIterator<V> end_vertex() const;
-
+    //добавление ветви
     void addBranch(V &src, V &node);
     void addBranch(const V &src, const V &node);
-    void removeBranch(V &src, V &dst);
-    TreeIterator<V> getRoot();
-    QList<QString> getBranches(V &node);
-    QList<QString> getBranches(const V &node);
-protected:
-    typedef Vertex<V> VType;
 
+    //удаление ветви
+    void removeBranch(V &src, V &dst);
+
+    //получить корень
+    TreeIterator<V> getRoot();
+
+    //получить все вершины, которые исходят из вершиты
+    QList<QString> getDstVertexs(V &node);
+    QList<QString> getDstVertexs(const V &node);
+
+protected:
+
+    //поиск вершины
     Vertex<V> *findNode(const V &node) const;
+    //поиск ребра
     Edge<V> *findEdge(const V &src, const V &dst) const;
+    //найти ребро, которое начинается с вершины
     Edge<V> * startWith(const V &node) const;
+
+    //добавление вершины
     Vertex<V>* addNode(V &node);
     Vertex<V>* addNode(const V &node);
+
+    //добавление ребра
     void addEdge(V &src, V &dst);
     void addEdge(const V &src,const V &dst);
 
+    //удаление вершины
     void removeNode(V &node);
+
+    //удаление ребра
     void removeEdge(V &src, V &dst);
     void removeEdge(iterator &src, iterator &dst);
 
@@ -65,9 +79,8 @@ protected:
 };
 
 template <class V>
-QList<QString> Tree<V>::getBranches(V &node){
+QList<QString> Tree<V>::getDstVertexs(V &node){
     QList<V> list = QList<QString>();
-    Vertex<V>* nodeV = findNode(node);
     for(int i=0; i<edges.size(); i++){
         if(edges[i]->getSrc()->getData() == node) {
             list.append(*(edges[i]->getDst()->getData()));
@@ -77,7 +90,7 @@ QList<QString> Tree<V>::getBranches(V &node){
 }
 
 template <class V>
-QList<QString> Tree<V>::getBranches(const V &node){
+QList<QString> Tree<V>::getDstVertexs(const V &node){
     QList<V> list = QList<QString>();
     Vertex<V>* nodeV = findNode(node);
     for(int i=0; i<edges.size(); i++){
@@ -183,8 +196,8 @@ inline Vertex<V>* Tree<V>::addNode(const V &node) {
 
 template <class V>
 inline void Tree<V>::addEdge(V &src, V &dst) {
-    VType *source = findNode(src);
-    VType *destination = findNode(dst);
+    Vertex<V> *source = findNode(src);
+    Vertex<V> *destination = findNode(dst);
 
     if (source && destination && findEdge(src, dst)) {
         throw TreeEdgeExistException<V>(src, dst);
@@ -202,8 +215,8 @@ inline void Tree<V>::addEdge(V &src, V &dst) {
 
 template <class V>
 inline void Tree<V>::addEdge(const V &src, const V &dst) {
-    VType *source = findNode(src);
-    VType *destination = findNode(dst);
+    Vertex<V> *source = findNode(src);
+    Vertex<V> *destination = findNode(dst);
 
     if (source && destination && findEdge(src, dst)) {
         throw TreeEdgeExistException<V>(src, dst);
@@ -221,7 +234,7 @@ inline void Tree<V>::addEdge(const V &src, const V &dst) {
 
 template <class V>
 void Tree<V>::removeNode(V &node) {
-    VType *n = findNode(node);
+    Vertex<V> *n = findNode(node);
 
     if (n == nullptr) {
         throw TreeNodeNotExistException<V>(node);
@@ -235,7 +248,7 @@ void Tree<V>::removeNode(V &node) {
 
 template <class V>
 void Tree<V>::removeEdge(V &src, V &dst) {
-    VType *edge = findEdge(src, dst);
+    Vertex<V> *edge = findEdge(src, dst);
 
     if (edge == nullptr) {
         throw TreeEdgeNotExistException<V>(src, dst);
@@ -279,10 +292,9 @@ inline Edge<V> * Tree<V>::startWith(const V &node) const {
 }
 
 template <class V>
-inline Edge<V> *
-        Tree<V>::findEdge(const V &src, const V &dst) const {
+inline Edge<V> *Tree<V>::findEdge(const V &src, const V &dst) const {
     for(int i=0; i < edges.size(); i++){
-        if(edges[i]->getSrc()->getData() == src && edges[i]->getDst()->getData() == src)
+        if(edges[i]->getSrc()->getData() == src && edges[i]->getDst()->getData() == dst)
             return edges[i];
     }
 

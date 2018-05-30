@@ -16,13 +16,13 @@ TreeService* TreeService::getInstance() {
     return TreeService::instance;
 }
 
-tree::Tree<QString>* TreeService::createTree(QList<QString> alts, QList<QString> criterias)
+tree::Tree<QString>* TreeService::createTree(QList<QString> alts, QList<QString> criteria)
 {
     tree::Tree<QString>* tree = new tree::Tree<QString>("Цель");
-    for(int i=0; i<criterias.size(); i++){
-        tree->addBranch("Цель", criterias[i]);
+    for(int i=0; i<criteria.size(); i++){
+        tree->addBranch("Цель", criteria[i]);
         for(int j=0; j<alts.size(); j++){
-            tree->addBranch(criterias[i], alts[j]);
+            tree->addBranch(criteria[i], alts[j]);
         }
     }
     QJsonObject json = parser.serialize(tree);

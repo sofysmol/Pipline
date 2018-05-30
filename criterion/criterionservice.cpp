@@ -13,7 +13,7 @@ CriterionService::CriterionService()
 }
 
 CriterionMatrix CriterionService::getMatrix(){
-    storage->getMatrix();
+    return storage->getMatrix();
 }
 
 void CriterionService::editMatrix(CriterionMatrix matrix){

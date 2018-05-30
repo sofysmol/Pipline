@@ -13,6 +13,8 @@
 #include "treeiterator.h"
 #include "treeexception.h"
 #include "treeallocator.h"
+#include <QString>
+#include <QList>
 
 namespace tree {
 
@@ -27,6 +29,7 @@ public:
     typedef TreeIterator<V> iterator;
 
     Tree(V& root);
+    Tree(const V& root);
     Tree(Tree<V> &other);
     ~Tree();
 
@@ -37,6 +40,8 @@ public:
     void addBranch(const V &src, const V &node);
     void removeBranch(V &src, V &dst);
     TreeIterator<V> getRoot();
+    QList<QString> getBranches(V &node);
+    QList<QString> getBranches(const V &node);
 protected:
     typedef Vertex<V> VType;
 
@@ -46,6 +51,7 @@ protected:
     Vertex<V>* addNode(V &node);
     Vertex<V>* addNode(const V &node);
     void addEdge(V &src, V &dst);
+    void addEdge(const V &src,const V &dst);
 
     void removeNode(V &node);
     void removeEdge(V &src, V &dst);
@@ -59,7 +65,36 @@ protected:
 };
 
 template <class V>
+QList<QString> Tree<V>::getBranches(V &node){
+    QList<V> list = QList<QString>();
+    Vertex<V>* nodeV = findNode(node);
+    for(int i=0; i<edges.size(); i++){
+        if(edges[i]->getSrc()->getData() == node) {
+            list.append(*(edges[i]->getDst()->getData()));
+        }
+    }
+    return list;
+}
+
+template <class V>
+QList<QString> Tree<V>::getBranches(const V &node){
+    QList<V> list = QList<QString>();
+    Vertex<V>* nodeV = findNode(node);
+    for(int i=0; i<edges.size(); i++){
+        if(edges[i]->getSrc() == node) {
+            list.append(*(edges[i]->getDst()->getData()));
+        }
+    }
+    return list;
+}
+
+template <class V>
 inline Tree<V>::Tree(V& root){
+    addNode(root);
+}
+
+template <class V>
+inline Tree<V>::Tree(const V& root){
     addNode(root);
 }
 
@@ -101,8 +136,8 @@ inline TreeIterator<V> Tree<V>::getRoot(){
 template <class V>
 inline void Tree<V>::addBranch(V &src, V &node) {
     Vertex<V>* srcV = findNode(src);
-    if (srcV) {
-        throw TreeNodeExistException<V>(src);
+    if (!srcV) {
+        throw TreeNodeNotExistException<V>(src);
     }
     Vertex<V>* dst = findNode(node);
 
@@ -115,8 +150,8 @@ inline void Tree<V>::addBranch(V &src, V &node) {
 template <class V>
 inline void Tree<V>::addBranch(const V &src,const V &node) {
     Vertex<V>* srcV = findNode(src);
-    if (srcV) {
-        throw TreeNodeExistException<V>(src);
+    if (srcV == nullptr) {
+        throw TreeNodeNotExistException<V>(src);
     }
     Vertex<V>* dst = findNode(node);
 
@@ -148,6 +183,25 @@ inline Vertex<V>* Tree<V>::addNode(const V &node) {
 
 template <class V>
 inline void Tree<V>::addEdge(V &src, V &dst) {
+    VType *source = findNode(src);
+    VType *destination = findNode(dst);
+
+    if (source && destination && findEdge(src, dst)) {
+        throw TreeEdgeExistException<V>(src, dst);
+    }
+    if (source == nullptr) {
+        source = allocator.allocVertex(src);
+        nodes.push_back( source );
+    }
+    if (destination == nullptr) {
+        destination = allocator.allocVertex(dst);
+        nodes.push_back( destination );
+    }
+    edges.push_back( allocator.allocEdge(source, destination) );
+}
+
+template <class V>
+inline void Tree<V>::addEdge(const V &src, const V &dst) {
     VType *source = findNode(src);
     VType *destination = findNode(dst);
 
@@ -227,29 +281,12 @@ inline Edge<V> * Tree<V>::startWith(const V &node) const {
 template <class V>
 inline Edge<V> *
         Tree<V>::findEdge(const V &src, const V &dst) const {
-    auto pos = std::find_if(
-        std::begin(edges),
-        std::end(edges),
-        [&src, &dst](Edge<V> &elem) {
-            return ((*elem->getSrc()->getData() == src) && (*elem->getDst()->getData() == dst));
-        }
-    );
-    if (pos != edges.cend()) {
-        return *pos;
+    for(int i=0; i < edges.size(); i++){
+        if(edges[i]->getSrc()->getData() == src && edges[i]->getDst()->getData() == src)
+            return edges[i];
     }
 
     return nullptr;
 }
-
-/*template <class V>
-inline TreeIterator<V> Tree<V>::begin_vertex() const {
-    return iterator(this);
-}
-
-template <class V>
-inline TreeIterator<V> Tree<V>::end_vertex() const {
-    return iterator(this, nodes.size());
-}*/
-
 }
 #endif // TREE_H

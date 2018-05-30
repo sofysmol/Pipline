@@ -1,0 +1,12 @@
+#include "jsonserializer.h"
+
+JsonSerializer::JsonSerializer()
+{
+    QJsonObject read(QString filename){
+        
+    }
+    
+    void write(QString filename, QJsonObject){
+        
+    }
+}

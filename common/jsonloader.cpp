@@ -15,7 +15,17 @@ JsonLoader::JsonLoader()
 
 void JsonLoader::save(QString filename, QJsonArray json){
     QFile file(filename);
-    if (!file.open(QIODevice::ReadOnly)) {
+    if (!file.open(QIODevice::WriteOnly)) {
+            qWarning("Couldn't open save file.");
+            throw FileNotFoundException();
+        }
+    QJsonDocument saveDoc(json);
+    file.write(saveDoc.toJson());
+}
+
+void JsonLoader::save(QString filename, QJsonObject json){
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly)) {
             qWarning("Couldn't open save file.");
             throw FileNotFoundException();
         }

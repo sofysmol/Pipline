@@ -10,6 +10,7 @@ public:
     JsonLoader();
     QJsonArray load(QString filename);
     void save(QString filename, QJsonArray json);
+    void save(QString filename, QJsonObject json);
 };
 
 #endif // JsonLoader_H

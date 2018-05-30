@@ -1,0 +1,35 @@
+{
+    "branches": [
+        {
+            "branches": [
+                {
+                    "branches": [
+                    ],
+                    "id": "hello"
+                },
+                {
+                    "branches": [
+                    ],
+                    "id": "hello2"
+                }
+            ],
+            "id": "buy"
+        },
+        {
+            "branches": [
+                {
+                    "branches": [
+                    ],
+                    "id": "hello"
+                },
+                {
+                    "branches": [
+                    ],
+                    "id": "hello2"
+                }
+            ],
+            "id": "buy2"
+        }
+    ],
+    "id": "Цель"
+}

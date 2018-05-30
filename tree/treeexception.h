@@ -1,6 +1,5 @@
 #ifndef TREEXCEPTION_H
 #define TREEXCEPTION_H
-
 namespace tree {
 
 template <class V>

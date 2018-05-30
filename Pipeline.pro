@@ -52,7 +52,8 @@ SOURCES += \
     criterion/criterionmatrix.cpp \
     criterion/criterionservice.cpp \
     tree/treeexception.cpp \
-    tree/treeservice.cpp
+    tree/treeservice.cpp \
+    tree/treeparser.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -88,7 +89,8 @@ HEADERS += \
     tree/treeiterator.h \
     tree/treeallocator.h\
     tree/treeexception.h \
-    tree/treeservice.h
+    tree/treeservice.h \
+    tree/treeparser.h
 
 FORMS += \
         mainwindow.ui
@@ -96,4 +98,5 @@ FORMS += \
 DISTFILES += \
     maps.json \
     cities.json \
-    users.json
+    users.json \
+    tree.json
